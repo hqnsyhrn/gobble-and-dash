@@ -5,7 +5,7 @@ export const CONFIG = {
   timeStep: 1 / 60,             // fixed physics step
   turkey: {
     speed: 3.4,                 // cells per second on ground
-    sprintSpeed: 5.0,           // while sprinting (stamina drains)
+    sprintSpeed: 5.2,           // while sprinting (stamina drains)
     staminaMax: 4.0,            // seconds of sprint
     staminaRegen: 1.6,          // stamina per second when not sprinting
     radius: 0.34,               // collision radius in cells
@@ -27,6 +27,7 @@ export const CONFIG = {
   corn: {
     score: 25,                  // per kernel
     staminaBoost: 1.2,          // seconds restored
+    comboWindow: 4.0,           // seconds between kernels to keep the combo
   },
   goalScore: 1500,              // bonus for escaping through the kitchen door
   lives: 3,

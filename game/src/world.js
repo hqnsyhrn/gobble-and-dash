@@ -169,11 +169,20 @@ export function updateWorld(world, input, dt, events) {
     }
   }
 
-  // Corn pickup.
+  // Corn pickup, with combo scoring.
+  if (world.combo === undefined) world.combo = 0;
+  if (world.comboTimer === undefined) world.comboTimer = 0;
+  if (world.comboTimer > 0) {
+    world.comboTimer -= dt;
+    if (world.comboTimer <= 0) world.combo = 0;
+  }
   for (const c of world.corn) {
     if (!c.taken && Math.hypot(c.x + 0.5 - turkey.x, c.y + 0.5 - turkey.y) < 0.6) {
       c.taken = true;
-      events.push({ type: 'corn' });
+      world.combo += 1;
+      world.comboTimer = CONFIG.corn.comboWindow;
+      const gain = CONFIG.corn.score * Math.min(4, world.combo);
+      events.push({ type: 'corn', gain, combo: world.combo, x: c.x, y: c.y });
       turkey.stamina = Math.min(cfg.staminaMax, turkey.stamina + CONFIG.corn.staminaBoost);
     }
   }
